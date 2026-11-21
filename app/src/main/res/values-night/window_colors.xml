@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Matches the default Material 3 dark background, so a dark-mode start is never white. -->
+    <color name="window_background">#1C1B1F</color>
+</resources>

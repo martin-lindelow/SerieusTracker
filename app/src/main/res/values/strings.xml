@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Default (English) strings. To add a language, copy this file to values-xx/strings.xml and translate it. -->
+<resources>
+    <string name="app_name">SerieusTracker</string>
+
+    <!-- Tabs and top bar -->
+    <string name="tab_upcoming">Upcoming</string>
+    <string name="tab_watch_next">Watch Next</string>
+    <string name="tab_my_list">My List</string>
+    <string name="action_search">Search</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_back">Back</string>
+    <string name="title_search">Search</string>
+    <string name="title_settings">Settings</string>
+
+    <!-- Lists -->
+    <string name="empty_upcoming">No upcoming episodes yet. Follow shows with the search button.</string>
+    <string name="empty_watch_next">You are all caught up.</string>
+    <string name="empty_my_list">You are not following any shows yet.</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <plurals name="in_days">
+        <item quantity="one">in %d day</item>
+        <item quantity="other">in %d days</item>
+    </plurals>
+    <plurals name="unseen_episodes">
+        <item quantity="one">%d unseen episode</item>
+        <item quantity="other">%d unseen episodes</item>
+    </plurals>
+    <string name="label_next">Next: %1$s</string>
+    <string name="episode_label_season">S%1$dE%2$d</string>
+    <string name="episode_label_flat">Episode %1$d</string>
+    <string name="progress_seen">%1$d/%2$d seen</string>
+    <string name="status_ended">Ended</string>
+    <string name="action_mark_next_seen">Mark next episode as seen</string>
+
+    <!-- Search -->
+    <string name="source_anime">Anime</string>
+    <string name="source_series">Other series</string>
+    <string name="search_hint">Title</string>
+    <string name="search_no_results">No results.</string>
+    <string name="action_follow">Follow</string>
+    <string name="action_following">Following</string>
+
+    <!-- Show details -->
+    <string name="detail_no_data">No episode data yet. Pull to refresh or use the refresh button.</string>
+    <string name="season_title">Season %1$d</string>
+    <string name="season_flat">Episodes</string>
+    <string name="date_unknown">Date unknown</string>
+    <string name="action_mark_all_seen">Mark all as seen</string>
+    <string name="action_clear_seen">Clear</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_unfollow">Unfollow</string>
+    <string name="unfollow_title">Unfollow %1$s?</string>
+    <string name="unfollow_message">Your watch progress for this show will be deleted.</string>
+    <string name="action_cancel">Cancel</string>
+
+    <!-- Plex login banner -->
+    <string name="banner_expired_title">Plex sign-in has expired</string>
+    <string name="banner_expired_text">Plex shows are not updated until you sign in again.</string>
+
+    <!-- Settings -->
+    <string name="section_plex_account">Plex account</string>
+    <string name="plex_signed_in">Signed in to Plex</string>
+    <string name="plex_signed_out">Not signed in to Plex</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_out">Sign out</string>
+    <string name="action_open_plex">Open Plex</string>
+    <string name="login_waiting">Waiting for you to approve the sign-in in Plex…</string>
+    <string name="token_label">Or paste a Plex token</string>
+    <string name="action_save">Save</string>
+    <string name="section_server">Plex server</string>
+    <string name="server_help">The address of your Plex server, used when reading watch history. Example: http://192.168.1.10:32400</string>
+    <string name="server_label">Server address</string>
+    <string name="section_test">Test Plex</string>
+    <string name="action_test">Run test</string>
+    <string name="diag_ok">The request succeeded. Start of the response:</string>
+    <string name="section_language">Language</string>
+    <string name="language_system">System default</string>
+    <string name="section_data">Data</string>
+    <string name="action_refresh_all">Refresh all shows</string>
+    <string name="action_export">Export</string>
+    <string name="action_import">Import</string>
+
+    <!-- Watch history import -->
+    <string name="history_button">Get watch history from Plex</string>
+    <string name="history_connecting">Connecting to your Plex server…</string>
+    <string name="history_fetching">Reading watched episodes from %1$s…</string>
+    <string name="history_matching">Matching shows (%1$d/%2$d)…</string>
+    <string name="history_loading">Loading episode data for %1$d new shows…</string>
+    <string name="history_done">Done (%1$s): %2$d new shows and %3$d episodes marked as seen.</string>
+    <string name="history_unmatched">Could not match: %1$s.</string>
+    <string name="history_failed">Failed:</string>
+
+    <!-- Notices -->
+    <string name="notice_logged_in">Signed in to Plex.</string>
+    <string name="notice_login_timeout">The sign-in timed out. Try again.</string>
+    <string name="notice_token_saved">Token saved.</string>
+    <string name="notice_signed_out">Signed out of Plex.</string>
+    <string name="notice_server_saved">Server address saved.</string>
+    <string name="notice_server_cleared">Server address cleared.</string>
+    <string name="notice_exported">Exported.</string>
+    <string name="notice_export_failed">The export failed.</string>
+    <string name="notice_imported">Imported.</string>
+    <string name="notice_import_failed">The file could not be read.</string>
+
+    <!-- Errors -->
+    <string name="error_plex_login_needed">Sign in to Plex in Settings first.</string>
+    <string name="error_plex_expired">Plex did not accept your sign-in. Sign in again in Settings.</string>
+    <string name="error_server_unreachable">Could not reach %1$s. Check the address and your network.</string>
+    <string name="error_server_address_needed">Enter your Plex server address in Settings first.</string>
+    <string name="error_http">The server answered with error %1$d (%2$s).</string>
+    <string name="error_network">Network problem. Check your connection and try again.</string>
+    <string name="error_generic">Something went wrong: %1$s</string>
+
+    <!-- Dropped shows and season menu -->
+    <string name="section_dropped">Dropped (%1$d)</string>
+    <string name="action_dropped">Dropped</string>
+    <string name="action_resume">Resume</string>
+    <string name="status_dropped">Dropped</string>
+    <string name="action_season_menu">Season options</string>
+
+    <!-- Source links, import explanation and My List sections -->
+    <string name="link_anilist">Read more on AniList ↗</string>
+    <string name="link_plex">Read more on Plex ↗</string>
+    <string name="section_active">Active (%1$d)</string>
+    <string name="history_explanation">Reads the episodes marked as watched on your Plex server and adds them here. It only adds: your existing progress is kept and nothing is unmarked or deleted. Shows that are missing from My List are added (also ones you have unfollowed earlier, if they are in your watch history), and watched episodes are marked as seen. A show that Plex does not know is looked up on AniList instead (season 1 only). Dropped shows are updated too but stay dropped.</string>
+</resources>

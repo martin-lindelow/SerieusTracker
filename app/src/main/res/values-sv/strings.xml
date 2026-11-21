@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SerieusTracker</string>
+
+    <!-- Tabs and top bar -->
+    <string name="tab_upcoming">Kommande</string>
+    <string name="tab_watch_next">Att se</string>
+    <string name="tab_my_list">Min lista</string>
+    <string name="action_search">Sök</string>
+    <string name="action_settings">Inställningar</string>
+    <string name="action_back">Tillbaka</string>
+    <string name="title_search">Sök</string>
+    <string name="title_settings">Inställningar</string>
+
+    <!-- Lists -->
+    <string name="empty_upcoming">Inga kommande avsnitt än. Följ serier med sökknappen.</string>
+    <string name="empty_watch_next">Du är ikapp.</string>
+    <string name="empty_my_list">Du följer inga serier än.</string>
+    <string name="today">Idag</string>
+    <string name="tomorrow">Imorgon</string>
+    <plurals name="in_days">
+        <item quantity="one">om %d dag</item>
+        <item quantity="other">om %d dagar</item>
+    </plurals>
+    <plurals name="unseen_episodes">
+        <item quantity="one">%d osett avsnitt</item>
+        <item quantity="other">%d osedda avsnitt</item>
+    </plurals>
+    <string name="label_next">Nästa: %1$s</string>
+    <string name="episode_label_season">S%1$dA%2$d</string>
+    <string name="episode_label_flat">Avsnitt %1$d</string>
+    <string name="progress_seen">%1$d/%2$d sedda</string>
+    <string name="status_ended">Avslutad</string>
+    <string name="action_mark_next_seen">Markera nästa avsnitt som sett</string>
+
+    <!-- Search -->
+    <string name="source_anime">Anime</string>
+    <string name="source_series">Övriga serier</string>
+    <string name="search_hint">Titel</string>
+    <string name="search_no_results">Inga träffar.</string>
+    <string name="action_follow">Följ</string>
+    <string name="action_following">Följer</string>
+
+    <!-- Show details -->
+    <string name="detail_no_data">Ingen avsnittsdata än. Dra för att uppdatera eller använd uppdateringsknappen.</string>
+    <string name="season_title">Säsong %1$d</string>
+    <string name="season_flat">Avsnitt</string>
+    <string name="date_unknown">Datum saknas</string>
+    <string name="action_mark_all_seen">Markera allt som sett</string>
+    <string name="action_clear_seen">Rensa</string>
+    <string name="action_refresh">Uppdatera</string>
+    <string name="action_unfollow">Sluta följa</string>
+    <string name="unfollow_title">Sluta följa %1$s?</string>
+    <string name="unfollow_message">Din historik för serien raderas.</string>
+    <string name="action_cancel">Avbryt</string>
+
+    <!-- Plex login banner -->
+    <string name="banner_expired_title">Plex-inloggningen har gått ut</string>
+    <string name="banner_expired_text">Serier från Plex uppdateras inte förrän du loggar in igen.</string>
+
+    <!-- Settings -->
+    <string name="section_plex_account">Plex-konto</string>
+    <string name="plex_signed_in">Inloggad på Plex</string>
+    <string name="plex_signed_out">Inte inloggad på Plex</string>
+    <string name="action_sign_in">Logga in</string>
+    <string name="action_sign_out">Logga ut</string>
+    <string name="action_open_plex">Öppna Plex</string>
+    <string name="login_waiting">Väntar på att du godkänner inloggningen i Plex…</string>
+    <string name="token_label">Eller klistra in en Plex-token</string>
+    <string name="action_save">Spara</string>
+    <string name="section_server">Plex-server</string>
+    <string name="server_help">Adressen till din Plex-server, som används när tittarhistoriken hämtas. Exempel: http://192.168.1.10:32400</string>
+    <string name="server_label">Serveradress</string>
+    <string name="section_test">Testa Plex</string>
+    <string name="action_test">Kör test</string>
+    <string name="diag_ok">Anropet lyckades. Början av svaret:</string>
+    <string name="section_language">Språk</string>
+    <string name="language_system">Systemets språk</string>
+    <string name="section_data">Data</string>
+    <string name="action_refresh_all">Uppdatera alla serier</string>
+    <string name="action_export">Exportera</string>
+    <string name="action_import">Importera</string>
+
+    <!-- Watch history import -->
+    <string name="history_button">Hämta tittarhistorik från Plex</string>
+    <string name="history_connecting">Ansluter till din Plex-server…</string>
+    <string name="history_fetching">Hämtar sedda avsnitt från %1$s…</string>
+    <string name="history_matching">Matchar serier (%1$d/%2$d)…</string>
+    <string name="history_loading">Hämtar avsnittsdata för %1$d nya serier…</string>
+    <string name="history_done">Klart (%1$s): %2$d nya serier och %3$d avsnitt markerade som sedda.</string>
+    <string name="history_unmatched">Kunde inte matchas: %1$s.</string>
+    <string name="history_failed">Misslyckades:</string>
+
+    <!-- Notices -->
+    <string name="notice_logged_in">Inloggad på Plex.</string>
+    <string name="notice_login_timeout">Inloggningen tog för lång tid. Försök igen.</string>
+    <string name="notice_token_saved">Token sparad.</string>
+    <string name="notice_signed_out">Utloggad från Plex.</string>
+    <string name="notice_server_saved">Serveradressen sparades.</string>
+    <string name="notice_server_cleared">Serveradressen rensades.</string>
+    <string name="notice_exported">Exporterat.</string>
+    <string name="notice_export_failed">Exporten misslyckades.</string>
+    <string name="notice_imported">Importerat.</string>
+    <string name="notice_import_failed">Filen kunde inte läsas.</string>
+
+    <!-- Errors -->
+    <string name="error_plex_login_needed">Logga in på Plex under Inställningar först.</string>
+    <string name="error_plex_expired">Plex godkände inte din inloggning. Logga in igen under Inställningar.</string>
+    <string name="error_server_unreachable">Kunde inte nå %1$s. Kontrollera adressen och ditt nätverk.</string>
+    <string name="error_server_address_needed">Ange din Plex-servers adress under Inställningar först.</string>
+    <string name="error_http">Servern svarade med fel %1$d (%2$s).</string>
+    <string name="error_network">Nätverksproblem. Kontrollera anslutningen och försök igen.</string>
+    <string name="error_generic">Något gick fel: %1$s</string>
+
+    <!-- Dropped shows and season menu -->
+    <string name="section_dropped">Avbrutna (%1$d)</string>
+    <string name="action_dropped">Avbruten</string>
+    <string name="action_resume">Återuppta</string>
+    <string name="status_dropped">Avbruten</string>
+    <string name="action_season_menu">Säsongsalternativ</string>
+
+    <!-- Source links, import explanation and My List sections -->
+    <string name="link_anilist">Läs mer på AniList ↗</string>
+    <string name="link_plex">Läs mer på Plex ↗</string>
+    <string name="section_active">Aktiva (%1$d)</string>
+    <string name="history_explanation">Läser av vilka avsnitt som är markerade som sedda på din Plex-server och lägger till dem här. Importen lägger bara till: din befintliga historik behålls och inget avmarkeras eller raderas. Serier som saknas i Min lista läggs till (även sådana du tidigare slutat följa, om de finns i din tittarhistorik) och sedda avsnitt markeras som sedda. En serie som Plex inte känner till söks i stället upp på AniList (bara säsong 1). Avbrutna serier uppdateras också men förblir avbrutna.</string>
+</resources>
