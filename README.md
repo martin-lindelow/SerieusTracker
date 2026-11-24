@@ -7,8 +7,15 @@ An Android app for keeping track of the TV series and anime you follow: what has
 - Your list lives **on your device**. There is no SerieusTracker account and no server of its own.
 - The backup file is plain, human-readable JSON that you can also write by hand, so you can bring a list over from another app. See [docs/FILE_FORMAT.md](docs/FILE_FORMAT.md).
 
-<!-- Add screenshots here, for example: ![Watch Next](docs/screenshots/watch-next.png) -->
-
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/Upcoming.png" width="180" alt="Screenshot of Upcoming view"><br><sub>Upcoming</sub></td>
+    <td align="center"><img src="docs/screenshots/WatchNext.png" width="180" alt="Screenshot of Watch Next view"><br><sub>Watch Next</sub></td>
+    <td align="center"><img src="docs/screenshots/Anime.png" width="180" alt="Screenshot of Anime details"><br><sub>Anime</sub></td>
+    <td align="center"><img src="docs/screenshots/TvShow.png" width="180" alt="Screenshot of TV show details"><br><sub>TV show</sub></td>
+    <td align="center"><img src="docs/screenshots/Search.png" width="180" alt="Screenshot of Search view"><br><sub>Search</sub></td>
+  </tr>
+</table>
 ---
 
 ## Contents
