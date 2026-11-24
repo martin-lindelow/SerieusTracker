@@ -101,8 +101,8 @@
     <string name="notice_server_cleared">Server address cleared.</string>
     <string name="notice_exported">Exported.</string>
     <string name="notice_export_failed">The export failed.</string>
-    <string name="notice_imported">Imported.</string>
-    <string name="notice_import_failed">The file could not be read.</string>
+    <string name="notice_imported">Imported: %1$d new shows and %2$d episodes marked as seen.</string>
+    <string name="notice_import_failed">The file could not be read as a list of shows.</string>
 
     <!-- Errors -->
     <string name="error_plex_login_needed">Sign in to Plex in Settings first.</string>
@@ -125,4 +125,11 @@
     <string name="link_plex">Read more on Plex ↗</string>
     <string name="section_active">Active (%1$d)</string>
     <string name="history_explanation">Reads the episodes marked as watched on your Plex server and adds them here. It only adds: your existing progress is kept and nothing is unmarked or deleted. Shows that are missing from My List are added (also ones you have unfollowed earlier, if they are in your watch history), and watched episodes are marked as seen. A show that Plex does not know is looked up on AniList instead (season 1 only). Dropped shows are updated too but stay dropped.</string>
+
+    <!-- Export and import -->
+    <string name="notice_import_skipped">%1$d entries in the file could not be read.</string>
+    <string name="data_explanation">Export saves your list to a file: the shows you follow, the episodes you have seen and which shows are dropped. Posters and episode lists are not saved, they are downloaded again after an import. Import reads such a file and adds it to your list. It only adds: your existing progress is kept, nothing is removed or unmarked, and shows you already follow keep their status.</string>
+    <string name="data_format_help">You can also write your own list, for example to bring one over from another app. Each show needs a source (anilist or plex) and either an id or a name. With only a name, the app looks the show up when you import. The title must match exactly (case and punctuation are ignored), and the shows that are not found are listed afterwards. For AniList the id is the number in the web address of the show, such as anilist.co/anime/154587. Under seen, give the episodes of each season as ranges: \"1-12, 14\" means episodes 1 to 12 and 14. AniList shows only have season 1, so \"seen\" can then be just the ranges. Optional: dropped (true) and lastWatched (a date such as 2026-11-20). Press and hold the example to select and copy it.</string>
+    <string name="notice_import_unmatched">Could not find: %1$s.</string>
+    <string name="import_looking_up">Looking up shows (%1$d/%2$d)…</string>
 </resources>

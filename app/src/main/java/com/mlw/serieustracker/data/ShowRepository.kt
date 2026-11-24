@@ -3,6 +3,7 @@ package com.mlw.serieustracker.data
 import com.mlw.serieustracker.network.AniListApi
 import com.mlw.serieustracker.network.AuthExpiredException
 import com.mlw.serieustracker.network.PlexApi
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -16,6 +17,9 @@ sealed interface HistoryProgress {
     data class LoadingShows(val count: Int) : HistoryProgress
 }
 
+/** The entries of an import file with ids filled in where possible, the names that were not found, and the first lookup error. */
+class Resolution(val shows: List<ListedShow>, val unmatched: List<String>, val error: Throwable?)
+
 data class HistoryResult(val server: String, val added: Int, val marked: Int, val unmatched: List<String>)
 
 /** Combines the local [Library] with the remote metadata providers. */
@@ -25,6 +29,42 @@ class ShowRepository(val library: Library, private val plex: PlexApi) {
         Source.ANILIST -> AniListApi.search(text)
         Source.PLEX -> plex.search(text)
     }
+
+    /**
+     * Finds the id of every entry that only has a name, by searching its source for a title that matches exactly
+     * (ignoring case and punctuation). Entries that already have an id are passed through untouched.
+     */
+    suspend fun resolve(items: List<ListedShow>, onProgress: (done: Int, total: Int) -> Unit): Resolution {
+        val total = items.count { it.id == null }
+        var done = 0
+        var error: Throwable? = null
+        val unmatched = mutableListOf<String>()
+        val found = mutableMapOf<Pair<Source, String>, SearchResult?>()
+        val shows = items.mapNotNull { item ->
+            if (item.id != null) return@mapNotNull item
+            onProgress(++done, total)
+            val wanted = normalizeTitle(item.name)
+            val match = found.getOrPut(item.source to wanted) {
+                try {
+                    search(item.source, item.name).firstOrNull { normalizeTitle(it.name) == wanted }
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    if (error == null) error = e
+                    null
+                }
+            }
+            if (match == null) {
+                unmatched += item.name
+                null
+            } else {
+                item.copy(id = match.id, name = match.name)
+            }
+        }
+        return Resolution(shows, unmatched, error)
+    }
+
+    private fun normalizeTitle(title: String): String = title.lowercase().filter { it.isLetterOrDigit() }
 
     fun follow(result: SearchResult) {
         val show = Show(result.key, result.source, result.id, result.name, result.poster)
@@ -48,11 +88,15 @@ class ShowRepository(val library: Library, private val plex: PlexApi) {
         }
     }
 
-    /** Refreshes stale shows (or all when [force]), skipping dropped ones. Returns the most relevant error, if any. */
+    /**
+     * Refreshes stale shows (or all when [force]), skipping dropped ones. A dropped show is still fetched once if it
+     * has no data at all (for example after an import), so it gets a title and poster. Returns the most relevant
+     * error, if any.
+     */
     suspend fun refreshAll(force: Boolean): Throwable? = coroutineScope {
         val now = System.currentTimeMillis()
         val due = library.shows.value.values.filter {
-            !it.dropped && (force || it.info == null || now - it.updatedAt > STALE_MS)
+            if (it.info == null) true else !it.dropped && (force || now - it.updatedAt > STALE_MS)
         }
         val gate = Semaphore(PARALLEL_REFRESHES)
         val errors = due.map { show ->

@@ -10,6 +10,12 @@ import org.json.JSONObject
 import java.io.File
 import java.util.concurrent.Executors
 
+/**
+ * What an import changed: new shows, newly marked episodes, entries in the file that could not be read, and names
+ * that could not be found on AniList/Plex.
+ */
+data class ImportResult(val added: Int, val marked: Int, val skipped: Int, val unmatched: List<String>)
+
 /** The user's followed shows, kept in memory as a [StateFlow] and persisted to a JSON file. */
 class Library(context: Context) {
     private val file = File(context.filesDir, "library.json")
@@ -33,44 +39,63 @@ class Library(context: Context) {
         map[key]?.let { map + (key to change(it)) } ?: map
     }
 
-    fun export(): String = serialize(_shows.value.values)
+    /** The human-readable export file, see [ShowListFile]. Not the same as the app's internal storage format. */
+    fun export(): String = ShowListFile.write(_shows.value.values)
 
-    /** Merges an exported file into the library. Accepts this app's format and the earlier web prototype's. */
-    fun importMerge(text: String) {
-        val imported = parse(text)
-        update { it + imported }
+    /**
+     * Merges an export file into the library and only ever adds: new shows are added, seen episodes are added to
+     * existing shows, and nothing is removed or unmarked. A show that is already followed keeps its own status
+     * (dropped or not) and its downloaded episode data. Entries without an id are ignored, so look them up first.
+     */
+    fun importMerge(items: List<ListedShow>, skipped: Int, unmatched: List<String>): ImportResult {
+        var added = 0
+        var marked = 0
+        update { current ->
+            // update() may run this more than once, so the counters start from zero every time.
+            added = 0
+            marked = 0
+            val merged = current.toMutableMap()
+            for (item in items) {
+                val id = item.id ?: continue
+                val key = item.source.prefix + id
+                val existing = merged[key]
+                if (existing == null) {
+                    merged[key] = Show(
+                        key = key,
+                        source = item.source,
+                        id = id,
+                        name = item.name.ifEmpty { id },
+                        poster = "",
+                        seen = item.seen,
+                        dropped = item.dropped,
+                        lastWatched = item.lastWatched,
+                    )
+                    added++
+                    marked += item.seen.size
+                } else {
+                    val fresh = item.seen - existing.seen
+                    marked += fresh.size
+                    merged[key] = existing.copy(
+                        seen = existing.seen + fresh,
+                        lastWatched = maxOf(existing.lastWatched, item.lastWatched),
+                    )
+                }
+            }
+            merged
+        }
+        return ImportResult(added, marked, skipped, unmatched)
     }
 
     private fun load(): Map<String, Show> = try {
-        if (file.exists()) parse(file.readText()) else emptyMap()
+        if (file.exists()) {
+            JSONObject(file.readText()).getJSONArray("shows").objects().map { it.toShow() }.associateBy { it.key }
+        } else {
+            emptyMap()
+        }
     } catch (e: Exception) {
         emptyMap()
     }
 
     private fun serialize(shows: Collection<Show>): String =
         JSONObject().put("version", 1).put("shows", JSONArray(shows.map { it.toJson() })).toString()
-
-    private fun parse(text: String): Map<String, Show> {
-        val root = JSONObject(text)
-        root.optJSONArray("shows")?.let { array -> return array.objects().map { it.toShow() }.associateBy { it.key } }
-        return parseWebPrototype(root.getJSONObject("shows"))
-    }
-
-    /** The web prototype stored shows as an object keyed by "al<id>" / "px<id>" with seen episodes as object keys. */
-    private fun parseWebPrototype(shows: JSONObject): Map<String, Show> = shows.keys().asSequence().mapNotNull { key ->
-        val item = shows.getJSONObject(key)
-        val source = when (item.optString("src")) {
-            "al" -> Source.ANILIST
-            "px" -> Source.PLEX
-            else -> return@mapNotNull null
-        }
-        Show(
-            key = key,
-            source = source,
-            id = item.get("id").toString(),
-            name = item.optString("name"),
-            poster = item.optString("poster"),
-            seen = item.optJSONObject("seen")?.keys()?.asSequence()?.toSet().orEmpty(),
-        )
-    }.associateBy { it.key }
 }

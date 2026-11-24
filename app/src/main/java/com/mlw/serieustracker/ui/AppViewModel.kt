@@ -10,10 +10,12 @@ import androidx.lifecycle.viewModelScope
 import com.mlw.serieustracker.R
 import com.mlw.serieustracker.data.HistoryProgress
 import com.mlw.serieustracker.data.HistoryResult
+import com.mlw.serieustracker.data.ImportResult
 import com.mlw.serieustracker.data.Library
 import com.mlw.serieustracker.data.Prefs
 import com.mlw.serieustracker.data.SearchResult
 import com.mlw.serieustracker.data.Show
+import com.mlw.serieustracker.data.ShowListFile
 import com.mlw.serieustracker.data.ShowRepository
 import com.mlw.serieustracker.data.Source
 import com.mlw.serieustracker.data.episodeKey
@@ -66,6 +68,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     var history by mutableStateOf<UiText?>(null); private set
     var historyBusy by mutableStateOf(false); private set
     var historyFailed by mutableStateOf(false); private set
+
+    // Import of a list file
+    var importBusy by mutableStateOf(false); private set
+    var importStatus by mutableStateOf<UiText?>(null); private set
 
     private var loginJob: Job? = null
 
@@ -257,18 +263,29 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun importFrom(uri: Uri) {
+        if (importBusy) return
+        importBusy = true
         viewModelScope.launch {
-            notice = try {
-                val text = withContext(Dispatchers.IO) {
-                    getApplication<Application>().contentResolver.openInputStream(uri)!!.bufferedReader().use { it.readText() }
+            try {
+                notice = try {
+                    val text = withContext(Dispatchers.IO) {
+                        getApplication<Application>().contentResolver.openInputStream(uri)!!.bufferedReader().use { it.readText() }
+                    }
+                    val parsed = ShowListFile.parse(text)
+                    val resolution = repository.resolve(parsed.shows) { done, total ->
+                        importStatus = UiText.Res(R.string.import_looking_up, done, total)
+                    }
+                    val result = library.importMerge(resolution.shows, parsed.skipped, resolution.unmatched)
+                    refreshAll(force = false)
+                    UiText.Join(listOf(result.toUiText()) + listOfNotNull(resolution.error?.toUiText()))
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    UiText.Res(R.string.notice_import_failed)
                 }
-                library.importMerge(text)
-                refreshAll(force = false)
-                UiText.Res(R.string.notice_imported)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                UiText.Res(R.string.notice_import_failed)
+            } finally {
+                importBusy = false
+                importStatus = null
             }
         }
     }
@@ -304,6 +321,16 @@ private fun HistoryResult.toUiText(): UiText = UiText.Join(
         UiText.Res(R.string.history_done, server, added, marked),
         unmatched.takeIf { it.isNotEmpty() }?.let {
             UiText.Res(R.string.history_unmatched, it.take(8).joinToString(", ") + if (it.size > 8) "…" else "")
+        },
+    ),
+)
+
+private fun ImportResult.toUiText(): UiText = UiText.Join(
+    listOfNotNull(
+        UiText.Res(R.string.notice_imported, added, marked),
+        skipped.takeIf { it > 0 }?.let { UiText.Res(R.string.notice_import_skipped, it) },
+        unmatched.takeIf { it.isNotEmpty() }?.let {
+            UiText.Res(R.string.notice_import_unmatched, it.take(8).joinToString(", ") + if (it.size > 8) "…" else "")
         },
     ),
 )
