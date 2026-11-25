@@ -1,0 +1,96 @@
+name: Bug report
+description: Something does not work the way it should
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. The more detail you give, the easier it is to fix.
+
+        **Please never paste your Plex token** (or any other credential) in this issue, in logs or in screenshots. For a security problem, do not use this form: see `SECURITY.md`.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the problem in a few sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: What did you do, step by step?
+      placeholder: |
+        1. Open Settings
+        2. Tap Import and choose the file
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where does it happen?
+      options:
+        - Search or following a show
+        - Upcoming / Watch Next / My List
+        - Show details and episodes
+        - Refreshing show data
+        - Plex sign-in
+        - Plex watch history import
+        - Export or import file
+        - Language or translation
+        - Something else
+    validations:
+      required: true
+  - type: dropdown
+    id: source
+    attributes:
+      label: Which source is the show from?
+      description: Leave as "Not related to a show" if the problem is not about one show.
+      options:
+        - Not related to a show
+        - AniList (anime)
+        - Plex (other series)
+        - Both
+  - type: input
+    id: app-version
+    attributes:
+      label: App version
+      description: A release version such as 0.1.0, or the commit if you built it yourself.
+    validations:
+      required: true
+  - type: input
+    id: android-version
+    attributes:
+      label: Android version and device
+      placeholder: Android 14, Pixel 8
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example show or import file
+      description: |
+        If it is about a particular show, give its name and AniList or Plex id. If it is about an import file, paste the relevant lines (remove anything private).
+      render: json
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error message, screenshots or logs
+      description: Paste the message shown in the app, or attach a screenshot. Remove any tokens first.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched the existing issues and this has not been reported
+          required: true
+        - label: I have removed tokens and other private information from everything I posted
+          required: true

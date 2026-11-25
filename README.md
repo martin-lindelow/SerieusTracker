@@ -1,5 +1,12 @@
 <img src="docs/SerieusTracker-banner.svg">
 
+![minSdk 33](https://img.shields.io/badge/minSdk-33-3DDC84?logo=android&logoColor=white)
+![targetSdk 37](https://img.shields.io/badge/targetSdk-37-3DDC84?logo=android&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white)
+![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white)
+![Data stored locally](https://img.shields.io/badge/data-stored%20locally-2EA44F)
+
+
 An Android app for keeping track of the TV series and anime you follow: what has aired, what you have seen, and what comes next.
 
 - **Anime** is looked up on [AniList](https://anilist.co) (no account needed).
