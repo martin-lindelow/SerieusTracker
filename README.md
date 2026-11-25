@@ -1,4 +1,4 @@
-# SerieusTracker
+<img src="docs/SerieusTracker-banner.svg">
 
 An Android app for keeping track of the TV series and anime you follow: what has aired, what you have seen, and what comes next.
 
