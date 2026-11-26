@@ -6,6 +6,7 @@
 ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white)
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white)
 ![Data stored locally](https://img.shields.io/badge/data-stored%20locally-2EA44F)
+![CI](https://github.com/martin-lindelow/SerieusTracker/actions/workflows/ci.yml/badge.svg)
 
 
 An Android app for keeping track of the TV series and anime you follow: what has aired, what you have seen, and what comes next.
