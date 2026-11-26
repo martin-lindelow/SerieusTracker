@@ -70,7 +70,7 @@
     <string name="token_label">Or paste a Plex token</string>
     <string name="action_save">Save</string>
     <string name="section_server">Plex server</string>
-    <string name="server_help">The address of your Plex server, used when reading watch history. Example: http://192.168.1.10:32400</string>
+    <string name="server_help">The address of your Plex server, used when reading watch history. Example: https://my.plex.com:32400</string>
     <string name="server_label">Server address</string>
     <string name="section_test">Test Plex</string>
     <string name="action_test">Run test</string>
@@ -129,7 +129,7 @@
     <!-- Export and import -->
     <string name="notice_import_skipped">%1$d entries in the file could not be read.</string>
     <string name="data_explanation">Export saves your list to a file: the shows you follow, the episodes you have seen and which shows are dropped. Posters and episode lists are not saved, they are downloaded again after an import. Import reads such a file and adds it to your list. It only adds: your existing progress is kept, nothing is removed or unmarked, and shows you already follow keep their status.</string>
-    <string name="data_format_help">You can also write your own list, for example to bring one over from another app. Each show needs a source (anilist or plex) and either an id or a name. With only a name, the app looks the show up when you import. The title must match exactly (case and punctuation are ignored), and the shows that are not found are listed afterwards. For AniList the id is the number in the web address of the show, such as anilist.co/anime/154587. Under seen, give the episodes of each season as ranges: \"1-12, 14\" means episodes 1 to 12 and 14. AniList shows only have season 1, so \"seen\" can then be just the ranges. Optional: dropped (true) and lastWatched (a date such as 2026-11-20). Press and hold the example to select and copy it.</string>
+    <string name="data_format_help">You can also write your own list, for example to bring one over from another app. Each show needs a source (anilist or plex) and either an id or a name. With only a name, the app looks the show up when you import. The title must match exactly (case and punctuation are ignored), and the shows that are not found are listed afterwards. For AniList the id is the number in the web address of the show, such as anilist.co/anime/154587. Under seen, give the episodes of each season as ranges: \"1–12, 14\" means episodes 1 to 12 and 14. AniList shows only have season 1, so \"seen\" can then be just the ranges. Optional: dropped (true) and lastWatched (a date such as 2026–11-20). Press and hold the example to select and copy it.</string>
     <string name="notice_import_unmatched">Could not find: %1$s.</string>
     <string name="import_looking_up">Looking up shows (%1$d/%2$d)…</string>
 </resources>

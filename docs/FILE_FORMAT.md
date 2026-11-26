@@ -38,12 +38,12 @@ The smallest useful file:
 
 The file is UTF-8 encoded JSON. A leading byte order mark is tolerated.
 
-| Part | Type | Required | Description |
-|---|---|---|---|
-| root | object | yes | An object with a `shows` array. A bare array of shows is also accepted. |
-| `app` | string | no | Written on export (`"SerieusTracker"`). Ignored on import. |
-| `version` | number | no | Written on export (currently `1`). Ignored on import. |
-| `shows` | array | yes | One object per show. |
+| Part      | Type   | Required | Description                                                             |
+|-----------|--------|----------|-------------------------------------------------------------------------|
+| root      | object | yes      | An object with a `shows` array. A bare array of shows is also accepted. |
+| `app`     | string | no       | Written on export (`"SerieusTracker"`). Ignored on import.              |
+| `version` | number | no       | Written on export (currently `1`). Ignored on import.                   |
+| `shows`   | array  | yes      | One object per show.                                                    |
 
 Unknown fields are ignored everywhere, so you can add your own notes to a file (for example `"comment"`).
 
@@ -51,23 +51,23 @@ Unknown fields are ignored everywhere, so you can add your own notes to a file (
 
 ## Show entries
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `source` | string | yes | `"anilist"` for anime, `"plex"` for other series. Case does not matter. |
-| `id` | number or string | one of `id` / `name` | The show's id at the source. See [Ids](#ids). |
-| `name` | string | one of `id` / `name` | Title. Informational when an `id` is given; used to look the show up when it is not. |
-| `seen` | object, string or array | no | The seen episodes. See [Seen episodes](#seen-episodes). Default: nothing seen. |
-| `dropped` | boolean | no | `true` if the show is dropped. Default `false`. |
-| `lastWatched` | string | no | When you last watched an episode. See [Dates](#dates). Default: unknown. |
+| Field         | Type                    | Required             | Description                                                                          |
+|---------------|-------------------------|----------------------|--------------------------------------------------------------------------------------|
+| `source`      | string                  | yes                  | `"anilist"` for anime, `"plex"` for other series. Case does not matter.              |
+| `id`          | number or string        | one of `id` / `name` | The show's id at the source. See [Ids](#ids).                                        |
+| `name`        | string                  | one of `id` / `name` | Title. Informational when an `id` is given; used to look the show up when it is not. |
+| `seen`        | object, string or array | no                   | The seen episodes. See [Seen episodes](#seen-episodes). Default: nothing seen.       |
+| `dropped`     | boolean                 | no                   | `true` if the show is dropped. Default `false`.                                      |
+| `lastWatched` | string                  | no                   | When you last watched an episode. See [Dates](#dates). Default: unknown.             |
 
 An entry that cannot be used is **skipped** and counted in the message shown after the import (see [Errors](#errors)).
 
 ### Ids
 
-| Source | What the id is | Where to find it |
-|---|---|---|
-| `anilist` | A positive whole number, no leading zero, at most 9 digits | The number in the show's AniList address: `https://anilist.co/anime/154587` → `154587` |
-| `plex` | Plex's own metadata id, a hexadecimal string | The `metadata/` part of the `key` parameter in the show's page address on app.plex.tv. The easiest way to get it is to export from the app. |
+| Source    | What the id is                                             | Where to find it                                                                                                                            |
+|-----------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| `anilist` | A positive whole number, no leading zero, at most 9 digits | The number in the show's AniList address: `https://anilist.co/anime/154587` → `154587`                                                      |
+| `plex`    | Plex's own metadata id, a hexadecimal string               | The `metadata/` part of the `key` parameter in the show's page address on app.plex.tv. The easiest way to get it is to export from the app. |
 
 For AniList the id is written as a bare number, for Plex as a string. When reading, a number is accepted for either and converted to text.
 
@@ -83,10 +83,10 @@ You do not have to find ids by hand: [give a name instead](#looking-up-names).
 
 Episodes are written as **ranges**:
 
-| Written | Means |
-|---|---|
-| `"7"` | episode 7 |
-| `"1-12"` | episodes 1 to 12 |
+| Written             | Means                     |
+|---------------------|---------------------------|
+| `"7"`               | episode 7                 |
+| `"1-12"`            | episodes 1 to 12          |
 | `"1-12, 14, 16-18"` | 1 to 12, 14, and 16 to 18 |
 
 Details of the range syntax:
@@ -98,11 +98,11 @@ Details of the range syntax:
 
 Other accepted shapes, all meaning **season 1**:
 
-| Shape | Example |
-|---|---|
-| A range string | `"seen": "1-26"` |
-| An array of numbers | `"seen": [1, 2, 3, 5]` |
-| An array of numbers and range strings | `"seen": [1, "3-5"]` |
+| Shape                                 | Example                |
+|---------------------------------------|------------------------|
+| A range string                        | `"seen": "1-26"`       |
+| An array of numbers                   | `"seen": [1, 2, 3, 5]` |
+| An array of numbers and range strings | `"seen": [1, "3-5"]`   |
 
 Inside the season object, the values can also be a single number or an array: `{"1": 5, "2": [1, 2, 3]}`.
 
@@ -114,11 +114,11 @@ AniList shows only have season 1 in the app (AniList treats each season as a sep
 
 `lastWatched` is optional and is used to order **Watch Next** (most recently watched first). It is written as text and accepts:
 
-| Form | Example |
-|---|---|
-| Date and time in UTC (what the app writes) | `"2026-11-20T21:14:00Z"` |
-| Date and time with an offset | `"2026-11-20T22:14:00+01:00"` |
-| Date only (midnight in the phone's time zone) | `"2026-11-20"` |
+| Form                                          | Example                       |
+|-----------------------------------------------|-------------------------------|
+| Date and time in UTC (what the app writes)    | `"2026-11-20T21:14:00Z"`      |
+| Date and time with an offset                  | `"2026-11-20T22:14:00+01:00"` |
+| Date only (midnight in the phone's time zone) | `"2026-11-20"`                |
 
 A value that cannot be read is treated as unknown.
 
@@ -138,11 +138,11 @@ A value that cannot be read is treated as unknown.
 
 Import **only adds**. Nothing is removed and no episode is unmarked.
 
-| Situation | Result |
-|---|---|
-| The show is not in your list yet | It is added with the `seen`, `dropped` and `lastWatched` from the file. |
-| The show is already in your list | The seen episodes from the file are **added** to yours, and `lastWatched` becomes the more recent of the two. Its status (dropped or not), poster and episode data are left as they are. |
-| The same show appears twice in the file | The entries are merged one after the other. |
+| Situation                               | Result                                                                                                                                                                                   |
+|-----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| The show is not in your list yet        | It is added with the `seen`, `dropped` and `lastWatched` from the file.                                                                                                                  |
+| The show is already in your list        | The seen episodes from the file are **added** to yours, and `lastWatched` becomes the more recent of the two. Its status (dropped or not), poster and episode data are left as they are. |
+| The same show appears twice in the file | The entries are merged one after the other.                                                                                                                                              |
 
 Shows are recognised by source and id, so the same show is never added twice.
 
@@ -170,11 +170,11 @@ When a name has been looked up, the title of the matched result replaces the nam
 
 ## Errors
 
-| Message | Cause |
-|---|---|
-| "The file could not be read as a list of shows." | The file is not valid JSON, or has no `shows` array. Nothing is imported. |
-| "N entries in the file could not be read." | Those entries have an unknown or missing `source`, have neither `id` nor `name`, or have an AniList `id` that is not a plain number. The other entries are imported. |
-| "Could not find: …" | These names did not match a search result exactly. The other entries are imported. |
+| Message                                          | Cause                                                                                                                                                                |
+|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| "The file could not be read as a list of shows." | The file is not valid JSON, or has no `shows` array. Nothing is imported.                                                                                            |
+| "N entries in the file could not be read."       | Those entries have an unknown or missing `source`, have neither `id` nor `name`, or have an AniList `id` that is not a plain number. The other entries are imported. |
+| "Could not find: …"                              | These names did not match a search result exactly. The other entries are imported.                                                                                   |
 
 A malformed `seen` or `lastWatched` does not make an entry fail: the unreadable parts are ignored. If a number of marked episodes looks too low after an import, check the `seen` text for typos.
 

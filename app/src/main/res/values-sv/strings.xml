@@ -69,7 +69,7 @@
     <string name="token_label">Eller klistra in en Plex-token</string>
     <string name="action_save">Spara</string>
     <string name="section_server">Plex-server</string>
-    <string name="server_help">Adressen till din Plex-server, som används när tittarhistoriken hämtas. Exempel: http://192.168.1.10:32400</string>
+    <string name="server_help">Adressen till din Plex-server, som används när tittarhistoriken hämtas. Exempel: https://my.plex.com:32400</string>
     <string name="server_label">Serveradress</string>
     <string name="section_test">Testa Plex</string>
     <string name="action_test">Kör test</string>
@@ -128,7 +128,7 @@
     <!-- Export and import -->
     <string name="notice_import_skipped">%1$d poster i filen kunde inte läsas.</string>
     <string name="data_explanation">Exportera sparar din lista till en fil: serierna du följer, vilka avsnitt du har sett och vilka serier som är avbrutna. Affischer och avsnittslistor sparas inte, de hämtas på nytt efter en import. Importera läser in en sådan fil och lägger till innehållet i din lista. Den lägger bara till: din befintliga historik behålls, inget tas bort eller avmarkeras och serier du redan följer behåller sin status.</string>
-    <string name="data_format_help">Du kan också skriva en egen lista, till exempel för att ta med en lista från en annan app. Varje serie behöver en source (anilist eller plex) och antingen ett id eller ett name. Med bara name söker appen upp serien när du importerar. Titeln måste stämma exakt (versaler och skiljetecken spelar ingen roll), och serier som inte hittas listas efteråt. För AniList är id:t numret i seriens webbadress, till exempel anilist.co/anime/154587. Under seen anger du avsnitten för varje säsong som intervall: \"1-12, 14\" betyder avsnitt 1 till 12 samt 14. AniList-serier har bara säsong 1, så då kan seen vara bara intervallen. Valfritt: dropped (true) och lastWatched (ett datum som 2026-11-20). Tryck och håll på exemplet för att markera och kopiera det.</string>
+    <string name="data_format_help">Du kan också skriva en egen lista, till exempel för att ta med en lista från en annan app. Varje serie behöver en source (anilist eller plex) och antingen ett id eller ett name. Med bara name söker appen upp serien när du importerar. Titeln måste stämma exakt (versaler och skiljetecken spelar ingen roll), och serier som inte hittas listas efteråt. För AniList är id:t numret i seriens webbadress, till exempel anilist.co/anime/154587. Under seen anger du avsnitten för varje säsong som intervall: \"1–12, 14\" betyder avsnitt 1 till 12 samt 14. AniList–serier har bara säsong 1, så då kan seen vara bara intervallen. Valfritt: dropped (true) och lastWatched (ett datum som 2026-11-20). Tryck och håll på exemplet för att markera och kopiera det.</string>
     <string name="notice_import_unmatched">Hittade inte: %1$s.</string>
     <string name="import_looking_up">Söker upp serier (%1$d/%2$d)…</string>
 </resources>

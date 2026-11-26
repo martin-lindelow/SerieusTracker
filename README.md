@@ -1,6 +1,7 @@
-<img src="docs/SerieusTracker-banner.svg">
+<!--suppress CheckImageSize, HtmlDeprecatedAttribute -->
+<img src="docs/SerieusTracker-banner.svg" alt="SerieusTracker, Keep track of TV shows and Anime, locally">
 
-![minSdk 33](https://img.shields.io/badge/minSdk-33-3DDC84?logo=android&logoColor=white)
+![minSdk 34](https://img.shields.io/badge/minSdk-34-3DDC84?logo=android&logoColor=white)
 ![targetSdk 37](https://img.shields.io/badge/targetSdk-37-3DDC84?logo=android&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white)
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white)
@@ -79,13 +80,13 @@ An Android app for keeping track of the TV series and anime you follow: what has
 
 Every show has a list of episodes with an air date. An episode counts as **aired** when its date is today or earlier.
 
-| | AniList (anime) | Plex (other series) |
-|---|---|---|
-| Seasons | Always season 1 (AniList describes a season as its own entry) | Real seasons, numbered as in Plex |
-| Episode titles | Not available (shown as "Episode N") | Yes |
-| Air dates | Only the date of the **next** episode is known | Date for every episode when Plex has it |
-| Older episodes | Get a placeholder date, so they count as aired but show "Date unknown" | Real dates |
-| Specials (season 0) | Not applicable | Ignored |
+|                     | AniList (anime)                                                        | Plex (other series)                     |
+|---------------------|------------------------------------------------------------------------|-----------------------------------------|
+| Seasons             | Always season 1 (AniList describes a season as its own entry)          | Real seasons, numbered as in Plex       |
+| Episode titles      | Not available (shown as "Episode N")                                   | Yes                                     |
+| Air dates           | Only the date of the **next** episode is known                         | Date for every episode when Plex has it |
+| Older episodes      | Get a placeholder date, so they count as aired but show "Date unknown" | Real dates                              |
+| Specials (season 0) | Not applicable                                                         | Ignored                                 |
 
 Show data is cached on the device, so the list works offline. Data is refreshed when it is older than six hours, when you pull down to refresh, or when you press **Refresh all shows** in Settings. Up to three shows are refreshed in parallel.
 
@@ -172,7 +173,7 @@ If Plex stops accepting the token, a banner appears on the main screen and Plex 
 
 ### 2. Your Plex Media Server (watch history)
 
-Settings → **Plex server**: enter the address of your server, for example `http://192.168.1.10:32400`. Then **Get watch history from Plex**:
+Settings → **Plex server**: enter the address of your server, for example `https://my.plex.com:32400`. Then **Get watch history from Plex**:
 
 1. The app connects to the server and reads all episodes marked as watched in its TV libraries (in pages of 500).
 2. Each watched show is matched to a show in the app: first by the Plex id in the show's GUID (`plex://show/<id>`), then by an exact title search on Plex (ignoring case). If Plex does not know the show, an exact title search on AniList is tried as a fallback, for anime. AniList matches only count season 1.
@@ -181,7 +182,7 @@ Settings → **Plex server**: enter the address of your server, for example `htt
 
 This only **adds**. Existing progress is kept, nothing is unmarked or deleted. Shows that could not be matched are listed at the end.
 
-The server is contacted directly from the phone, so the phone must be able to reach it (usually the same network or a VPN). Plain `http://` addresses are allowed for this reason (see [privacy](#data-storage-and-privacy)).
+The server is contacted directly from the phone, so the phone must be able to reach it (usually the same network or a VPN). Secure `https://` addresses are required (see [privacy](#data-storage-and-privacy)).
 
 ### 3. Diagnostics
 
@@ -219,16 +220,21 @@ The example file in the settings screen and the field names of the file format a
 2. Let Gradle sync.
 3. Run the `app` configuration on a device or emulator.
 
+**Running tests**
+
+- Run `./gradlew testDebugUnitTest` for JVM unit tests (import/export, data models, repository merging, search and UI text).
+- Run `./gradlew connectedCheck` for instrumented Compose UI tests on a device/emulator.
+
 **Main dependencies** (versions are in the Gradle files)
 
-| Library | Used for |
-|---|---|
-| Jetpack Compose, Material 3 | UI |
-| Navigation Compose | Navigation between screens |
-| Lifecycle ViewModel and runtime for Compose | State handling |
-| OkHttp | HTTP requests (AniList, plex.tv, Plex server) |
-| kotlinx.coroutines | Asynchronous work |
-| `org.json` (part of Android) | JSON, so no extra JSON library is needed |
+| Library                                     | Used for                                      |
+|---------------------------------------------|-----------------------------------------------|
+| Jetpack Compose, Material 3                 | UI                                            |
+| Navigation Compose                          | Navigation between screens                    |
+| Lifecycle ViewModel and runtime for Compose | State handling                                |
+| OkHttp                                      | HTTP requests (AniList, plex.tv, Plex server) |
+| kotlinx.coroutines                          | Asynchronous work                             |
+| `org.json` (part of Android)                | JSON, so no extra JSON library is needed      |
 
 ---
 
@@ -278,12 +284,12 @@ app/src/main/
 
 The app deliberately uses two different formats:
 
-| | Internal (`library.json`) | Export/import file |
-|---|---|---|
-| Purpose | Working storage and cache | Backup and exchange |
-| Contains | Everything, including posters, episode lists, dates and `updatedAt` | Only what you created |
-| Audience | The app | Humans and other tools |
-| Specification | Not stable, may change between versions | [docs/FILE_FORMAT.md](docs/FILE_FORMAT.md) |
+|               | Internal (`library.json`)                                           | Export/import file                         |
+|---------------|---------------------------------------------------------------------|--------------------------------------------|
+| Purpose       | Working storage and cache                                           | Backup and exchange                        |
+| Contains      | Everything, including posters, episode lists, dates and `updatedAt` | Only what you created                      |
+| Audience      | The app                                                             | Humans and other tools                     |
+| Specification | Not stable, may change between versions                             | [docs/FILE_FORMAT.md](docs/FILE_FORMAT.md) |
 
 ---
 
@@ -297,8 +303,8 @@ The app deliberately uses two different formats:
   - your own Plex server, only when you use the watch history import.
 - **The Plex token** is encrypted with AES-256-GCM using a key held in the Android Keystore. The encrypted value is excluded from Android backups and device transfer (`backup_rules.xml`, `data_extraction_rules.xml`), because the key cannot be moved to another device. After a restore you sign in to Plex again.
 - **Android backup** is enabled for the rest of the app data, so your list can be restored by Android's own backup. The export file is a separate and more portable option.
-- **Cleartext HTTP** is allowed (`usesCleartextTraffic="true"`) so that the app can talk to a Plex server on your local network by IP address, where HTTPS usually is not available. Requests to AniList and plex.tv use HTTPS. If you do not use the watch history import, you can turn this off in `AndroidManifest.xml`.
-- The Plex token is sent as a query parameter, which is how the Plex API works. For your own server this means it travels in plain text on your network when you use an `http://` address.
+- **Cleartext HTTP** is disabled (`usesCleartextTraffic="false"`). All network traffic, including connections to your Plex server, requires secure HTTPS (`https://`). If you need unencrypted HTTP for a local Plex server without SSL, you can build your own version of the app by setting `usesCleartextTraffic="true"` in `AndroidManifest.xml`.
+- The Plex token is sent as a query parameter over encrypted HTTPS.
 
 ---
 
@@ -310,7 +316,6 @@ The app deliberately uses two different formats:
 - **Plex is needed for non-anime.** Searching and refreshing Plex shows requires a Plex login.
 - **Android version.** The per-app language feature uses `LocaleManager` (Android 13) and `LocaleConfig` (Android 14). On older versions the language picker may be unavailable or only offer the built-in languages.
 - **Seen episodes outside the episode list.** An import can mark episodes that a show does not (yet) have. They are stored and take effect if the episode appears later.
-- **No tests yet.** The project has no automated tests at the moment.
 
 ---
 
@@ -319,7 +324,7 @@ The app deliberately uses two different formats:
 **"Sign in to Plex in Settings first" / the expired banner**
 Sign in again under Settings → Plex account. Anime does not need Plex.
 
-**"Could not reach http://…" when importing history**
+**"Could not reach https://…" when importing history**
 Check the address (including the port, normally `:32400`), that the phone is on the same network as the server or connected through a VPN, and that the server is running. Use **Test Plex** only for the Plex cloud; the server address is tested when you start the history import.
 
 **A show has no episodes**
@@ -342,4 +347,4 @@ SerieusTracker is an independent project. It is not affiliated with, endorsed by
 
 ## License
 
-No license has been chosen yet. Until a `LICENSE` file is added to the repository, all rights are reserved by the author.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.

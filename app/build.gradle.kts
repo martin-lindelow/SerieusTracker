@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -13,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mlw.serieustracker"
-        minSdk = 33
+        minSdk = 34
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
@@ -40,8 +42,6 @@ android {
     androidResources {
         generateLocaleConfig = true
     }
-
-
 }
 
 dependencies {
@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.okhttp)
     implementation(libs.coil.compose)
     implementation(libs.androidx.navigation.compose)
@@ -60,6 +62,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
 
     testImplementation(libs.junit)
+    testImplementation("org.json:json:20240303")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

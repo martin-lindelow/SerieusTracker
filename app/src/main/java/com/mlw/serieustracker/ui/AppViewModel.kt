@@ -33,6 +33,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
+import kotlin.time.Duration.Companion.milliseconds
 
 /** Holds all app state. Screens read it and call the functions below; they never touch the data layer directly. */
 class AppViewModel(application: Application) : AndroidViewModel(application) {
@@ -164,7 +165,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 loginUrl = plex.authUrl(pin)
                 val deadline = System.currentTimeMillis() + LOGIN_TIMEOUT_MS
                 while (System.currentTimeMillis() < deadline) {
-                    delay(POLL_INTERVAL_MS)
+                    delay(POLL_INTERVAL_MS.milliseconds)
                     val token = try {
                         plex.pollPin(pin)
                     } catch (e: IOException) {

@@ -53,8 +53,7 @@ Problems that are relevant to report include:
 
 These are documented and are not treated as vulnerabilities, but suggestions to improve them are welcome as ordinary issues:
 
-- **Cleartext HTTP is allowed** (`usesCleartextTraffic="true"`), so that the app can reach a Plex Media Server on the local network by IP address. Traffic to AniList and plex.tv uses HTTPS. Anyone who does not use the Plex server history import can disable cleartext traffic in `AndroidManifest.xml`.
-- **The Plex token is sent as a query parameter**, which is how the Plex API works. When a user enters an `http://` server address, the token travels unencrypted on that network.
+- **Cleartext HTTP is disabled** (`usesCleartextTraffic="false"`), so all network traffic (including connections to a Plex Media Server) must use encrypted HTTPS (`https://`). Anyone who needs unencrypted HTTP (for example for a local Plex server without SSL) can build their own version of the app with `usesCleartextTraffic="true"` in `AndroidManifest.xml`.
 - **The list is not encrypted at rest** beyond Android's own app sandbox and device encryption. Only the Plex token is additionally encrypted with a key in the Android Keystore.
 - **Android backup is enabled** for the app data except for the token, which is excluded because the Keystore key cannot be moved to another device.
 

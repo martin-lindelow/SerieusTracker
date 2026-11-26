@@ -3,7 +3,6 @@ package com.mlw.serieustracker.ui.theme
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
-import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -13,6 +12,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.core.graphics.drawable.toDrawable
 
 /** Material 3 theme using the user's wallpaper colours (dynamic colour is always available on Android 12+). */
 @Composable
@@ -24,7 +24,8 @@ fun SerieusTrackerTheme(content: @Composable () -> Unit) {
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            view.context.findActivity()?.window?.setBackgroundDrawable(ColorDrawable(colors.background.toArgb()))
+            view.context.findActivity()?.window?.setBackgroundDrawable(
+                colors.background.toArgb().toDrawable())
         }
     }
 

@@ -9,6 +9,7 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
+import androidx.core.content.edit
 
 /**
  * Stores secrets encrypted with an AES-256-GCM key that lives in the Android Keystore, so the key never leaves
@@ -24,7 +25,7 @@ class SecureStore(context: Context) {
         return try {
             decrypt(blob)
         } catch (e: Exception) {
-            prefs.edit().remove(name).apply()
+            prefs.edit {remove(name)}
             null
         }
     }
@@ -32,13 +33,13 @@ class SecureStore(context: Context) {
     /** Stores [value]; an empty value deletes the entry. Failures leave nothing stored. */
     fun put(name: String, value: String) {
         if (value.isEmpty()) {
-            prefs.edit().remove(name).apply()
+            prefs.edit {remove(name)}
             return
         }
         try {
-            prefs.edit().putString(name, encrypt(value)).apply()
+            prefs.edit {putString(name, encrypt(value))}
         } catch (e: Exception) {
-            prefs.edit().remove(name).apply()
+            prefs.edit { remove(name) }
         }
     }
 

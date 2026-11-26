@@ -21,11 +21,11 @@ object AniListApi {
     private const val ENDPOINT = "https://graphql.anilist.co"
 
     private const val SEARCH_QUERY =
-        "query(\$q:String){Page(perPage:20){media(search:\$q,type:ANIME,sort:SEARCH_MATCH)" +
+        $$"query($q:String){Page(perPage:20){media(search:$q,type:ANIME,sort:SEARCH_MATCH)" +
             "{id title{romaji english}coverImage{medium}startDate{year}format}}}"
 
     private const val DETAIL_QUERY =
-        "query(\$id:Int){Media(id:\$id){title{romaji english}coverImage{medium}status episodes " +
+        $$"query($id:Int){Media(id:$id){title{romaji english}coverImage{medium}status episodes " +
             "nextAiringEpisode{episode airingAt}}}"
 
     suspend fun search(text: String): List<SearchResult> =

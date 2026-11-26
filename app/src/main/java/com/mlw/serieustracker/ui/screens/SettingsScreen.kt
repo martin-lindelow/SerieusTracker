@@ -28,7 +28,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -66,7 +65,6 @@ import com.mlw.serieustracker.ui.components.SecondaryText
 import java.text.Collator
 import java.util.Locale
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(vm: AppViewModel, onBack: () -> Unit) {
     val uriHandler = LocalUriHandler.current
@@ -140,7 +138,7 @@ fun SettingsScreen(vm: AppViewModel, onBack: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 label = { Text(stringResource(R.string.server_label)) },
-                placeholder = { Text("http://192.168.1.10:32400") },
+                placeholder = { Text("https://my.plex.com/") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
             )
             OutlinedButton(onClick = { vm.saveServerUrl(server) }) { Text(stringResource(R.string.action_save)) }
